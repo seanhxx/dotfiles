@@ -1,0 +1,32 @@
+/* Workspace module styling */
+#workspaces button {
+  padding: 0 5px;
+  /* background-color: transparent; */
+  color: #5c5c5c;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+}
+
+/* Active/focused workspace */
+#workspaces button.active {
+  background-color: #285577;
+  border-bottom: 3px solid rgba(26, 255, 255, 0.93);
+  color: #ffffff;
+}
+
+/* Urgent workspace */
+#workspaces button.urgent {
+  background-color: #eb4d4b;
+}
+
+/* Hover state */
+#workspaces button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inherit;
+  text-shadow: inherit;
+  border-bottom: 3px solid #cccccc;
+}
+
+#tray {
+  background-color: #2980b9;
+}

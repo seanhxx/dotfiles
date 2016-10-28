@@ -1,0 +1,18 @@
+keys:
+  - &seanhxx A6C7A7F918A57D077BF5E43957B83C0B2B9C5E3F
+  - &game-office age17cz5tfj48gx44ku3j97ptpe4jtrwjtjshwah5uscmg03xv082vas2lhgc8
+
+
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *game-office
+        pgp:
+          - *seanhxx
+  - path_regex: secrets/[^/]+\.env$
+    key_groups:
+      - age:
+          - *game-office
+        pgp:
+          - *seanhxx
