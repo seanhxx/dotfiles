@@ -41,23 +41,49 @@ in
     git = {
       includes = [
         {
-          condition = "gitdir:**/github/**/.git";
+          condition = "gitdir:**/github-private/**/.git";
           contents = {
             user = {
               email = "seanhxx42@live.com";
               name = "Hu Xiaoxiang";
-              signingKey = "1BA08D88F5600ADF";
+              # signingKey = "";
             };
             commit = {
               gpgSign = false;
             };
           };
         }
+        {
+          condition = "gitdir:**/dotfiles/.git";
+          contents = {
+            user = {
+              email = "seanhxx42@live.com";
+              name = "Hu Xiaoxiang";
+              signingKey = "57B83C0B2B9C5E3F";
+            };
+            commit = {
+              gpgSign = true;
+            };
+          };
+        }
+        {
+          condition = "gitdir:**/github-htx/**/.git";
+          contents = {
+            user = {
+              email = "sean.hu@htx-inc.com";
+              name = "Hu Xiaoxiang";
+              signingKey = "1BA08D88F5600ADF";
+            };
+            commit = {
+              gpgSign = true;
+            };
+          };
+        }
       ];
-      signing = {
-        key = "1BA08D88F5600ADF";
-        signByDefault = false;
-      };
+      # signing = {
+      #   key = "1BA08D88F5600ADF";
+      #   signByDefault = false;
+      # };
       extraConfig = {
         user = {
           name = "Hu Xiaoxiang";
