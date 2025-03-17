@@ -5,93 +5,50 @@
 
   home = {
     packages = with pkgs; [
-      # Dev Tools
-      nixd
-      yaml-language-server
-      lazygit
-      lazydocker
-      solana-cli
-      v4l-utils
+      # 1. Nix Ecosystem Tools
+      nix-index-update # Package content index
+      nvfetcher # Version update helper
 
-      # Terminal Utils
-      (warp-terminal.override { waylandSupport = true; })
-      mdcat
-      lnav
-      ncdu
-      sysz
-      kmon
-      gpg-tui
-      # ueberzugpp
-      # ytfzf
-      # termshark
+      # 2. CLI Tools
+      ## File and Text Management
+      fd # Find alternative
+      file # File type identifier
+      ripgrep # Grep alternative
+      wget # Download files
+      unzip # Extract archives
+      aspell # Spell checker
+      aspellDicts.en # English dictionary
+      envsubst # Env variable substitution
+      lnav # Log file navigator
 
-      # Apps
-      google-chrome
-      microsoft-edge
-      slack
-      zoom-us
-      onlyoffice-bin
-      # tectonic
-      # xournalpp
+      ## System Management
+      htop # Process viewer
+      tmux # Terminal multiplexer
+      killall # Process killer
+      du-dust # Disk usage analyzer
+      ncdu # Disk usage visualizer
+      tealdeer # Command examples
+      sysz # Systemd unit manager
+      kmon # Kernel module manager
 
-      # System & Cloud Tools
-      doctl
-      gdrive
-      freerdp
-      lego
-      usbutils
-      appimage-run
-      record_screen
+      ## Network Tools
+      dig # DNS lookup
+      socat # Socket utility
+      websocat # WebSocket client
+      cloudflared # Cloudflare tunnel
+      rustscan # Fast port scanner
+      hey # HTTP load tester
+
+      ## Security Tools
+      openssl # SSL toolkit
+      sops # Secrets management
+      oath-toolkit # OATH authentication
+      age # File encryption
+      cmctl # Certificate manager
+
     ];
   };
 
   programs = {
-    alacritty = {
-      enable = true;
-      settings = {
-        # opacity = 0.9;
-        font = {
-          size = 10;
-          normal = {
-            family = "JetBrainsMono Nerd Font";
-          };
-          bold = {
-            family = "JetBrainsMono Nerd Font";
-          };
-          italic = {
-            family = "JetBrainsMono Nerd Font";
-          };
-          bold_italic = {
-            family = "JetBrainsMono Nerd Font";
-          };
-        };
-        cursor = {
-          style = {
-            shape = "Beam";
-            blinking = "Always";
-          };
-        };
-        keyboard = {
-          bindings = [
-            {
-              key = "Space";
-              mods = "Control|Shift";
-              mode = "~Search";
-              action = "ToggleViMode";
-            }
-            {
-              key = "Return";
-              mods = "Command|Shift";
-              action = "SpawnNewInstance";
-            }
-          ];
-        };
-      };
-    };
-
-    noti = {
-      enable = true;
-    };
-
   };
 }

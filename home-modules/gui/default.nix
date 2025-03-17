@@ -10,246 +10,218 @@
 {
   imports = [ ./common.nix ];
 
-  xdg = {
-    mimeApps = {
-      defaultApplications = {
-        # "text/html" = "microsoft-edge.desktop";
-        # "text/x-csharp" = [ "rider.desktop" ];
-        # "x-scheme-handler/http" = "microsoft-edge.desktop";
-        # "x-scheme-handler/https" = "microsoft-edge.desktop";
-        # "x-scheme-handler/about" = "microsoft-edge.desktop";
-        # "x-scheme-handler/unknown" = "microsoft-edge.desktop";
-        "text/html" = "google-chrome.desktop";
-        "text/x-csharp" = [ "rider.desktop" ];
-        "x-scheme-handler/http" = "google-chrome.desktop";
-        "x-scheme-handler/https" = "google-chrome.desktop";
-        "x-scheme-handler/about" = "google-chrome.desktop";
-        "x-scheme-handler/unknown" = "google-chrome.desktop";
-      };
+  # ===== DISPLAY ENVIRONMENT CONFIGURATION =====
+
+  # Desktop environment integration
+  qt.enable = true;
+
+  # GTK configuration
+  gtk = lib.mkIf pkgs.stdenv.isLinux {
+    enable = true;
+    gtk4.extraConfig = {
+      gtk-cursor-blink = false;
+      gtk-recent-files-limit = 20;
     };
   };
 
-  qt = {
-    enable = true;
+  # Input method configuration
+  i18n = lib.mkIf pkgs.stdenv.isLinux {
+    inputMethod = {
+      enabled = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        fcitx5-gtk
+        fcitx5-chinese-addons
+        fcitx5-rime
+      ];
+    };
   };
 
+  # Cursor configuration
   home = lib.mkIf pkgs.stdenv.isLinux {
     pointerCursor = {
       name = "Vanilla-DMZ";
       package = pkgs.vanilla-dmz;
-      x11 = {
-        enable = true;
-      };
+      x11.enable = true;
       size = 32;
     };
-    packages = with pkgs; [
 
-      # 1. Text, File & Shell Utilities
-      aspell
-      aspellDicts.en
-      file
-      envsubst
-      fd
-      ripgrep
+    sessionVariables = {
+      STARSHIP_LOG = "error";
+    };
+
+    # ===== PACKAGES =====
+    packages = with pkgs; [
+      # GUI Applications
+      ## Browsers
+      google-chrome
+      microsoft-edge
+
+      ## Office & Productivity
+      onlyoffice-bin
+
+      ## Communication & Collaboration
+      slack
+      zoom-us
+      tdesktop # Telegram desktop client
+      feishu-lark
+
+      ## System GUI Tools
+      albert # Application launcher
+      ledger-live-desktop
+      (warp-terminal.override { waylandSupport = true; })
+      netbird-ui
+      gpg-tui
+
+      ## Remote Desktop & Administration
+      termius # SSH client with GUI
+      freerdp # Remote desktop client
+
+      # CLI Development Tools
+      ## Language Support & Tools
+      delve # Go debugger
+      bun
+      yarn2nix
+      ruby
+      solana-cli
+      solc-select
+      yaml-language-server
+
+      ## Version Control & Development
+      lazygit
+      lazydocker
+      gitleaks
+      nixd
       shellcheck
       shfmt
-      unzip
-      wget
-      killall
-      du-dust
-      tealdeer
 
-      # 2. System Monitoring & Hardware Info
-      htop
-      lshw
-      hwinfo
-      glxinfo
-      neofetch
-      tmux
-
-      # 3. Development Tools & IDEs
-      # android-studio
-      github-copilot-cli
-      delve # Go debugger
+      ## Database Tools
       litecli
       mongosh
       mycli
       my2sql
-      (python3.withPackages (
-        _: with python3.pkgs; [
-          pip
-          aider-chat
-        ]
-      ))
-      bun
-      yarn2nix
-      ruby
-      rustscan
-      wakatime
-
-      # 4. Container & Kubernetes Ecosystem
-      # kube-capacity
-      # kube-prompt
-      # kubectl
-      # kubectl-tree
-      # kubespy
-      # kubeshark
-      # kustomize
-      # krew
-      # kconf
-      # kube-score
-      # kubelogin-oidc
-      # calicoctl
-      # (kubernetes-helm-wrapped.override { plugins = [ kubernetes-helmPlugins.helm-diff ]; })
-      # popeye
-      # dive # Docker image analyzer
-
-      # 5. Cloud, Networking & Infrastructure
-      cloudflared
-      netbird-ui
-      fluxcd
-      # weave-gitops
-      # grpcurl
-      # s3cmd
-      socat
-      sshpass
-      dig
-      websocat
-      glab
-      hey
-
-      # 6. Media, Graphics & Design
-      # gimp
-      # blender
-      # godot_4
-      # plantuml
-      ffmpeg-full
-      graphviz
-
-      # 7. Communication, Productivity & Launchers
-      albert
-      termius
-      tdesktop
-      # whatsapp-for-linux
-      zotero
-      ledger-live-desktop
-
-      # 8. Desktop, Windowing & Environment Integration
-      # wineWow64Packages.wayland
-      # kdePackages.dolphin
-      # kdePackages.qtwayland
-      # kdePackages.qt6ct
-      # libsForQt5.oxygen-icons
-      # code-cursor
-      vulkan-loader
-
-      # 9. Security, Encryption & Secrets Management
-      libsecret
-      openssl
-      sops
-      oath-toolkit
-      gitleaks
-      solc-select
-      yubikey-manager
-      yubico-piv-tool
-      vulnix
-      age
-
-      # 10. Database & Data Management
       redis
       pgcli
+
+      # System Utilities
+      ## Hardware Tools
+      usbutils
+      v4l-utils
+      yubikey-manager
+      yubico-piv-tool
+
+      ## Network Tools
+      sshpass
+      lego
+
+      # Media & Document Processing
+      ffmpeg-full
+      graphviz
+      mdcat
       qrencode
 
-      # 11. Miscellaneous/System Integration & Nix Utils
-      cmctl
+      # System Management
+      libsecret
       nix-melt
-      nix-index-update
       nixpacks
-      nixd
-      nvfetcher
+      vulnix
+      powertop
+      tlp
+
+      # System Information
+      neofetch
+      glxinfo
+      lshw
+      hwinfo
     ];
-    sessionVariables = {
-      STARSHIP_LOG = "error";
+  };
+
+  # ===== APPLICATION ASSOCIATIONS =====
+
+  # Default applications
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "google-chrome.desktop";
+    "text/x-csharp" = [ "rider.desktop" ];
+    "x-scheme-handler/http" = "google-chrome.desktop";
+    "x-scheme-handler/https" = "google-chrome.desktop";
+    "x-scheme-handler/about" = "google-chrome.desktop";
+    "x-scheme-handler/unknown" = "google-chrome.desktop";
+  };
+
+  # Application-specific settings
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
     };
   };
 
-  gtk = lib.mkIf pkgs.stdenv.isLinux {
-    enable = true;
-    gtk4 = {
-      extraConfig = {
-        gtk-cursor-blink = false;
-        gtk-recent-files-limit = 20;
-      };
-    };
-  };
+  # ===== PROGRAM CONFIGURATIONS =====
 
-  i18n = lib.mkIf pkgs.stdenv.isLinux {
-    inputMethod = {
-      enabled = "fcitx5";
-      fcitx5 = {
-        addons = with pkgs; [
-          #fcitx5-mozc
-          fcitx5-gtk
-          fcitx5-chinese-addons
-          fcitx5-rime
+  programs = {
+    # GUI Applications
+    vscode.enable = true;
+    wofi.enable = true;
+    mpv.enable = true;
+
+    # Terminal Emulators
+    alacritty = {
+      enable = true;
+      settings = {
+        font = {
+          size = 10;
+          normal.family = "JetBrainsMono Nerd Font";
+          bold.family = "JetBrainsMono Nerd Font";
+          italic.family = "JetBrainsMono Nerd Font";
+          bold_italic.family = "JetBrainsMono Nerd Font";
+        };
+        cursor.style = {
+          shape = "Beam";
+          blinking = "Always";
+        };
+        keyboard.bindings = [
+          {
+            key = "Space";
+            mods = "Control|Shift";
+            mode = "~Search";
+            action = "ToggleViMode";
+          }
+          {
+            key = "Return";
+            mods = "Command|Shift";
+            action = "SpawnNewInstance";
+          }
         ];
       };
     };
-  };
-  programs = {
+
+    # System Utilities
     nh = {
       enable = true;
       flake = "/home/seanhxx/dotfiles";
     };
-    wofi = {
-      enable = true;
-    };
-    # carapace.enable = true;
-    # comodoro.enable = true;
-    mpv.enable = true;
-
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-pipewire-audio-capture
-      ];
-    };
-    # thunderbird = {
-    #   enable = true;
-    #   profiles = {
-    #     "xiongchenyu6@gmail.com" = {
-    #       isDefault = true;
-    #       withExternalGnupg = true;
-    #     };
-    #   };
-    # };
-
-    vscode = {
-      enable = true;
-    };
-
-    chromium = {
-      enable = true;
-      package = pkgs.microsoft-edge;
-    };
-
-    password-store = {
-      enable = true;
-    };
+    noti.enable = true;
+    password-store.enable = true;
   };
 
+  # ===== SYSTEM SERVICES =====
+
   services = lib.mkIf pkgs.stdenv.isLinux {
-    # safeeyes.enable = true;
-    #    ssh-agent.enable = true;
+    # GUI Services
+    pasystray.enable = true;
+    blueman-applet.enable = true;
 
-    pasystray = {
+    # Power Management
+    poweralertd.enable = true;
+
+    # Disk Management
+    udiskie = {
       enable = true;
-    };
-    poweralertd = {
-      enable = true;
+      automount = true;
+      notify = true;
+      tray = "always";
     };
 
+    # Notifications
     dunst = {
       enable = true;
       iconTheme = {
@@ -257,46 +229,19 @@
         package = pkgs.adwaita-icon-theme;
         size = "16x16";
       };
-      settings = {
-        global = {
-          monitor = 0;
-          geometry = "600x50-50+65";
-          shrink = "yes";
-          transparency = 10;
-          padding = 16;
-          horizontal_padding = 16;
-          font = "JetBrainsMono Nerd Font";
-          line_height = 4;
-          format = "<b>%s</b>\\n%b";
-          browser = "${pkgs.xdg-utils}/bin/xdg-open";
-          dmenu = "${pkgs.rofi}/bin/rofi -dmenu -i -p dunst";
-        };
+      settings.global = {
+        monitor = 0;
+        geometry = "600x50-50+65";
+        shrink = "yes";
+        transparency = 10;
+        padding = 16;
+        horizontal_padding = 16;
+        font = "JetBrainsMono Nerd Font";
+        line_height = 4;
+        format = "<b>%s</b>\\n%b";
+        browser = "${pkgs.xdg-utils}/bin/xdg-open";
+        dmenu = "${pkgs.rofi}/bin/rofi -dmenu -i -p dunst";
       };
-    };
-
-    blueman-applet = {
-      enable = true;
-    };
-    # dropbox = {
-    #   enable = false;
-    # };
-    udiskie = {
-      enable = true;
-      automount = true;
-      notify = true;
-      tray = "always";
-    };
-    # syncthing = {
-    #   enable = true;
-    #   tray = {
-    #     enable = true;
-    #   };
-    # };
-  };
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
     };
   };
 }
