@@ -46,10 +46,10 @@ in
             user = {
               email = "seanhxx42@live.com";
               name = "Hu Xiaoxiang";
-              # signingKey = "";
+              signingKey = "57B83C0B2B9C5E3F";
             };
             commit = {
-              gpgSign = false;
+              gpgSign = true;
             };
           };
         }
@@ -80,10 +80,10 @@ in
           };
         }
       ];
-      # signing = {
-      #   key = "1BA08D88F5600ADF";
-      #   signByDefault = false;
-      # };
+      signing = {
+        key = "";
+        signByDefault = false;
+      };
       extraConfig = {
         user = {
           name = "Hu Xiaoxiang";
