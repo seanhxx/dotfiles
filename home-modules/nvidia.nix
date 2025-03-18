@@ -11,12 +11,11 @@
   wayland = {
     windowManager = {
       hyprland = {
-        #        enableNvidiaPatches = true;
-
         extraConfig = lib.mkDefault ''
           general {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
           # no_cursor_warps = 1
+          # env = OGL_DEDICATED_HW_STATE_PER_CONTEXT,ENABLE_ROBUST
           env = WLR_NO_HARDWARE_CURSORS,1
           env = LIBVA_DRIVER_NAME,nvidia
           env = XDG_SESSION_TYPE,wayland
