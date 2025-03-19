@@ -16,15 +16,14 @@
     ++ [
       inputs.impermanence.nixosModules.home-manager.impermanence
       inputs.sops-nix.homeManagerModules.sops
-      (import ../shared-modules/sops.nix)
     ];
 
   sops = {
     gnupg = {
       home = "~/.gnupg";
     };
+    defaultSopsFile = ../secrets/common.yaml;
   };
 
-  xdg.configFile."nixpkgs/config.nix".source = ../nixpkgs-config.nix;
   programs.home-manager.enable = true;
 }

@@ -21,7 +21,6 @@ let
     home-manager.nixosModules.home-manager
     nur.modules.nixos.default
     impermanence.nixosModules.impermanence
-    (import ../shared-modules/sops.nix)
     (_: {
       nixpkgs = {
         system = lib.mkDefault "x86_64-linux";
@@ -37,7 +36,7 @@ in
     ezModules.ssh-harden
   ] ++ nixos-modules;
 
-  nixpkgs.config = import ../nixpkgs-config.nix;
+  sops.defaultSopsFile = ../secrets/common.yaml;
 
   home-manager = {
     useGlobalPkgs = true;
