@@ -39,6 +39,7 @@
     ezModules.gui # Graphical UI components and dependencies
     ezModules.greetd # Modern display manager for Wayland
     ezModules.virtualisation # VM and container support
+    # ezModules.nginx # Nginx reverse proxy for web applications
 
     # Hardware-specific support for Lenovo Legion 16ACH6H
     # (AMD CPU + NVIDIA GPU gaming laptop)
