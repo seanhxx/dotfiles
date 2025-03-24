@@ -1,15 +1,10 @@
 {
   pkgs,
-  shares,
-  config,
   ezModules,
   osConfig,
   lib,
   ...
 }:
-let
-  inherit (pkgs.stdenv) isDarwin;
-in
 {
   imports =
     lib.debug.traceSeq osConfig.system.nixos.tags (

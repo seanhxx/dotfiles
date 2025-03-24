@@ -137,14 +137,48 @@
 
   # ===== APPLICATION ASSOCIATIONS =====
 
-  # Default applications
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = "google-chrome.desktop";
-    "text/x-csharp" = [ "rider.desktop" ];
-    "x-scheme-handler/http" = "google-chrome.desktop";
-    "x-scheme-handler/https" = "google-chrome.desktop";
-    "x-scheme-handler/about" = "google-chrome.desktop";
-    "x-scheme-handler/unknown" = "google-chrome.desktop";
+  xdg = {
+    enable = true;
+    #TODO screen capture seems only works in nixos modules, but here for xdg-open
+    portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
+      ];
+      # Add this configuration to address the warning about xdg-desktop-portal 1.17+
+      config = {
+        common = {
+          default = "*";
+        };
+      };
+    };
+    mime = {
+      enable = true;
+    };
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "text/html" = "google-chrome.desktop";
+        "text/x-csharp" = [ "rider.desktop" ];
+        "x-scheme-handler/http" = "google-chrome.desktop";
+        "x-scheme-handler/https" = "google-chrome.desktop";
+        "x-scheme-handler/about" = "google-chrome.desktop";
+        "x-scheme-handler/unknown" = "google-chrome.desktop";
+      };
+    };
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      extraConfig = {
+        XDG_MISC_DIR = "${config.home.homeDirectory}/Misc";
+        XDG_TEST_DIR = "${config.home.homeDirectory}/Test";
+        XDG_GIT_DIR = "${config.home.homeDirectory}/Git";
+        XDG_PRIVATE_DIR = "${config.home.homeDirectory}/Private";
+        XDG_WORKSPACE_DIR = "${config.home.homeDirectory}/Workspace";
+      };
+    };
   };
 
   # Application-specific settings

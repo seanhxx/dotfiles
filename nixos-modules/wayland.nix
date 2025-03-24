@@ -2,8 +2,12 @@
 {
   xdg = {
     portal = {
-      config.common.default = "*";
       enable = true;
+      config = {
+        common = {
+          default = "*";
+        };
+      };
       wlr = {
         enable = true;
       };
@@ -11,10 +15,10 @@
         enable = true;
       };
       xdgOpenUsePortal = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-gtk
-          xdg-desktop-portal-hyprland
-        ];
-      };
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
+      ];
+    };
   };
 }
