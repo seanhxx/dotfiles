@@ -96,6 +96,7 @@
             "ForwardAgent" = "yes";
             "IdentityAgent" = "SSH_AUTH_SOCK";
             # "IdentityAgent" = "/run/user/1002/gnupg/S.gpg-agent.ssh";
+            "RemoteForward" = "/run/user/1002/gnupg/S.gpg-agent /run/user/1002/gnupg/S.gpg-agent.extra";
           };
         };
       };

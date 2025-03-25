@@ -55,12 +55,12 @@
   services = {
     gpg-agent = {
       enable = true;
-      # enableExtraSocket = true;
+      enableExtraSocket = true;
       # extraConfig = ''
       #   allow-emacs-pinentry
       #   allow-loopback-pinentry
       # '';
-      pinentryPackage = pkgs.pinentry-tty;
+      pinentryPackage = pkgs.pinentry-gnome3;
       enableSshSupport = true;
       # gpg2 -K --with-keygrip
       sshKeys = [
