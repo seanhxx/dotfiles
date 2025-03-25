@@ -69,14 +69,6 @@
   };
 
   programs = {
-    gpg = {
-      enable = true;
-      settings = {
-        # Use a specific pinentry program
-        pinentry-program = "${pkgs.pinentry-gnome3}/bin/pinentry-gnome3";
-      };
-    };
-
     readline = {
       enable = true;
     };

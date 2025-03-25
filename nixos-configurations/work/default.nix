@@ -39,6 +39,7 @@
     ezModules.gui # Graphical UI components and dependencies
     ezModules.greetd # Modern display manager for Wayland
     ezModules.virtualisation # VM and container support
+    ezModules.elasticsearch
     # ezModules.nginx # Nginx reverse proxy for web applications
 
     # Hardware-specific support for Lenovo Legion 16ACH6H
@@ -193,12 +194,12 @@
       useDHCP = lib.mkDefault true;
     };
 
-  #-----------------------------------------------------------------------------
-  # SECURITY SERVICES
-  #-----------------------------------------------------------------------------
-  # Services related to system security and monitoring
-
   services = {
+    #-----------------------------------------------------------------------------
+    # SECURITY SERVICES
+    #-----------------------------------------------------------------------------
+    # Services related to system security and monitoring
+
     # CrowdStrike Falcon endpoint protection
     falcon-sensor = {
       enable = true;
@@ -246,57 +247,6 @@
       ensureDatabases = [ "seanhxx" ];
     };
 
-    #-------------------------------------------------------------------------
-    # NETWORKING AND VPN SERVICES
-    #-------------------------------------------------------------------------
-    # Connectivity and remote access tools
-
-    # NetBird peer-to-peer VPN for secure remote connectivity
-    netbird = {
-      enable = true;
-      # Default configuration uses auto-discovery and management server
-    };
-
-    #-------------------------------------------------------------------------
-    # SEARCH AND ANALYTICS SERVICES
-    #-------------------------------------------------------------------------
-    # Search engines and data stores for development
-
-    # Elasticsearch search engine and analytics database
-    elasticsearch = {
-      enable = true;
-      package = pkgs.elasticsearch7; # Use version 7.x specifically
-
-      # Development mode with single node
-      single_node = true;
-
-      # Cluster identification
-      cluster_name = "work-cluster";
-
-      # Network configuration for local-only access
-      listenAddress = "127.0.0.1";
-      port = 9200; # HTTP API port
-      tcp_port = 9300; # Inter-node communication port
-
-      # Additional plugins
-      plugins = [
-        pkgs.elasticsearch7Plugins.ingest-attachment # Document processing plugin
-      ];
-
-      # Java memory settings to limit resource usage
-      extraJavaOptions = [
-        "-Xms512m" # Initial heap size
-        "-Xmx512m" # Maximum heap size
-      ];
-
-      # Additional Elasticsearch configuration
-      extraConf = ''
-        xpack.security.enabled: false
-        path.logs: /var/log/elasticsearch
-        discovery.seed_hosts: ["127.0.0.1"]
-      '';
-    };
-
     # Redis in-memory database/cache
     redis = {
       servers = {
@@ -318,6 +268,18 @@
         };
       };
     };
+
+    #-------------------------------------------------------------------------
+    # NETWORKING AND VPN SERVICES
+    #-------------------------------------------------------------------------
+    # Connectivity and remote access tools
+
+    # NetBird peer-to-peer VPN for secure remote connectivity
+    netbird = {
+      enable = true;
+      # Default configuration uses auto-discovery and management server
+    };
+
   };
 
   #-----------------------------------------------------------------------------
