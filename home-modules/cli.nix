@@ -56,10 +56,9 @@
     gpg-agent = {
       enable = true;
       enableExtraSocket = true;
-      # extraConfig = ''
-      #   allow-emacs-pinentry
-      #   allow-loopback-pinentry
-      # '';
+      extraConfig = ''
+        allow-loopback-pinentry
+      '';
       pinentryPackage = pkgs.pinentry-gnome3;
       enableSshSupport = true;
       # gpg2 -K --with-keygrip
@@ -70,7 +69,14 @@
   };
 
   programs = {
-    # keychain = { enable = true; };
+    gpg = {
+      enable = true;
+      settings = {
+        # Use a specific pinentry program
+        pinentry-program = "${pkgs.pinentry-gnome3}/bin/pinentry-gnome3";
+      };
+    };
+
     readline = {
       enable = true;
     };
