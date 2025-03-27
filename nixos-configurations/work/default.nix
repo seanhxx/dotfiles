@@ -129,7 +129,7 @@
 
   boot = {
     # Use the latest kernel for best hardware support and performance
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_13;
 
     # Enable support for running ARM64 binaries through emulation
     binfmt.emulatedSystems = [ "aarch64-linux" ];
