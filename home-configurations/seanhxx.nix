@@ -67,7 +67,7 @@
             user = {
               email = "sean.hu@htx-inc.com";
               name = "Hu Xiaoxiang";
-              signingKey = "1BA08D88F5600ADF";
+              signingKey = "5D60F2018C745B5E";
             };
             commit = {
               gpgSign = true;
