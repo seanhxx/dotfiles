@@ -1,18 +1,21 @@
 keys:
-  - &seanhxx A6C7A7F918A57D077BF5E43957B83C0B2B9C5E3F
-  - &game-office age17cz5tfj48gx44ku3j97ptpe4jtrwjtjshwah5uscmg03xv082vas2lhgc8
+  - &seanhu-yubikey 07E0EAA703CC7FF2ABF0B5F75D60F2018C745B5E
+  - &seanhu-work-laptop A6C7A7F918A57D077BF5E43957B83C0B2B9C5E3F
+  - &root-work-laptop age17cz5tfj48gx44ku3j97ptpe4jtrwjtjshwah5uscmg03xv082vas2lhgc8
 
 
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
       - age:
-          - *game-office
+          - *root-work-laptop
         pgp:
-          - *seanhxx
+          - *seanhu-work-laptop
+          - *seanhu-yubikey
   - path_regex: secrets/[^/]+\.env$
     key_groups:
       - age:
-          - *game-office
+          - *root-work-laptop
         pgp:
-          - *seanhxx
+          - *seanhu-work-laptop
+          - *seanhu-yubikey
