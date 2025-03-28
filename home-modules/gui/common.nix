@@ -45,6 +45,7 @@
       oath-toolkit # OATH authentication
       age # File encryption
       cmctl # Certificate manager
+      cryptsetup
 
     ];
   };
