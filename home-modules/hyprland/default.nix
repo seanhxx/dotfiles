@@ -150,7 +150,6 @@
       ];
 
       windowrulev2 = [
-        "workspace 1 silent,class:^(Alacritty)$"
         "float,class:^(albert)$"
         "noblur,class:^(albert)$"
         "noshadow,class:^(albert)$"
