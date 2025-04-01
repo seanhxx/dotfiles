@@ -12,5 +12,12 @@ gpg --keyserver hkps://keys.openpgp.org --recv-keys <key_id>
 
 # Restart gpg-connect-agent
 gpg-connect-agent killagent /bye
+# Run this command to restart the gpg-agent every time you restart your computer
 gpg-connect-agent /bye
+```
+
+# VSCode SSH login via Yubikey or local GPG key
+
+```bash
+ssh -v -T -D 35269 -o ConnectTimeout=15 <SSH-HOST>
 ```
