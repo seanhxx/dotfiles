@@ -149,10 +149,15 @@
         "pasystray" # PulseAudio system tray
       ];
 
-      windowrule = [
-        "workspace 1 silent, alacritty"
-        "float,noblur,noshadow,noborder,pseudo,dimaround,albert"
-        "opacity 0.9 0.95,Alacritty"
+      windowrulev2 = [
+        "workspace 1 silent,class:^(Alacritty)$"
+        "float,class:^(albert)$"
+        "noblur,class:^(albert)$"
+        "noshadow,class:^(albert)$"
+        "noborder,class:^(albert)$"
+        "pseudo,class:^(albert)$"
+        "dimaround,class:^(albert)$"
+        "opacity 0.9 0.95,class:^(Alacritty)$"
       ];
     };
   };
