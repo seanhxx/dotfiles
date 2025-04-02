@@ -100,7 +100,7 @@
 
       # Configuration for NVIDIA driver approach
       open = false; # Use proprietary drivers for better performance
-      prime.offload.enable = false; # Don't use PRIME offloading (single GPU system)
+      prime.sync.enable = false;
     };
   };
 
