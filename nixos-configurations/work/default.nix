@@ -87,20 +87,19 @@
     # NVIDIA GPU configuration for optimal performance
     nvidia = {
       # Force full composition pipeline for smoother display and reduced tearing
-      forceFullCompositionPipeline = true;
+      # forceFullCompositionPipeline = true;
 
       # Enable kernel modesetting for better Wayland compatibility
-      modesetting.enable = true;
+      # modesetting.enable = true;
 
       # Power management for extended battery life on mobile workstation
-      powerManagement = {
-        enable = true; # Enable power saving features
-        finegrained = false; # Coarse-grained power management for stability
-      };
+      # powerManagement = {
+      #   enable = false; # Enable power saving features
+      #   finegrained = false; # Coarse-grained power management for stability
+      # };
 
       # Configuration for NVIDIA driver approach
-      open = false; # Use proprietary drivers for better performance
-      prime.sync.enable = false;
+      open = true;
     };
   };
 
