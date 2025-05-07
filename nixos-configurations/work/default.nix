@@ -119,6 +119,10 @@
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
+
+    systemPackages = with pkgs; [
+      displaylink
+    ];
   };
 
   #-----------------------------------------------------------------------------
@@ -129,6 +133,9 @@
   boot = {
     # Use the latest kernel for best hardware support and performance
     kernelPackages = pkgs.linuxPackages_6_13;
+    kernelModules = [
+      "evdi"
+    ];
 
     # Enable support for running ARM64 binaries through emulation
     binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -279,6 +286,25 @@
       # Default configuration uses auto-discovery and management server
     };
 
+    xserver.videoDrivers = [
+      "displaylink"
+      "modesetting"
+    ];
+
+  };
+
+  systemd.services.dlm = {
+    wantedBy = [ "multi-user.target" ];
+  };
+
+  # If using Hyprland or another Wayland compositor, you might need to specify
+  # the render device if you have multiple GPUs (e.g., NVIDIA + DisplayLink).
+  # This can often be set via environment variables in your home-manager or system config.
+  # For example, if your main GPU is /dev/dri/card0:
+  environment.sessionVariables = {
+    WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0"; # Prioritize DisplayLink (card1) then main GPU (card0)
+    # Or for specific EVDI rendering:
+    # WLR_EVDI_RENDER_DEVICE = "/dev/dri/card0"; # Tells DisplayLink/EVDI to use your main GPU for rendering
   };
 
   #-----------------------------------------------------------------------------

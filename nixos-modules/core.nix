@@ -66,12 +66,12 @@
     };
 
     # Consider adding system-wide packages here:
-    # systemPackages = with pkgs; [
-    #   vim
-    #   git
-    #   wget
-    #   curl
-    # ];
+    systemPackages = with pkgs; [
+      vim
+      git
+      wget
+      curl
+    ];
   };
 
   #-----------------------------------------------------------------------------

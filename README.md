@@ -375,3 +375,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [impermanence](https://github.com/nix-community/impermanence) for state management
 - [nixos-hardware](https://github.com/NixOS/nixos-hardware/) for robust hardware support
 - [nix-alien](https://github.com/thiagokokada/nix-alien) for running foreign binaries
+
+
+## Troubleshooting
+- Displaylink: 
+```bash
+nix-prefetch-url --name displaylink-610.zip https://www.synaptics.com/sites/default/files/exe_files/2024-10/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.1-EXE.zip
+```

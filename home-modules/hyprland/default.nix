@@ -37,11 +37,13 @@
     settings = {
       monitor = [
         "DP-2, 2560x1440@60, 0x0, 1.6, transform, 0" # Dell monitor at top with lower resolution
+        "DVI-I-1, 2560x1440@60, 0x0, 1.6, transform, 0" 
         "eDP-1, 2560x1600@60, 0x900, 1.6, transform, 0" # Laptop with 1.6x scaling for larger fonts
       ];
 
       workspace = [
         "DP-2, 1" # Assign workspace 1 to Dell
+        "DVI-I-1, 1"
         "eDP-1, 2" # Assign workspace 2 to built-in
       ];
 
@@ -240,6 +242,7 @@
           output = [
             "eDP-1"
             "DP-2"
+            "DVI-I-1"
           ];
           modules-left = [ "hyprland/workspaces" ];
           modules-center = [ "hyprland/window" ];
