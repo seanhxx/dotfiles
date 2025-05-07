@@ -13,7 +13,7 @@
           ezModules.zsh
           ezModules.cli
           ezModules.gui
-          ezModules.nvidia
+          # ezModules.nvidia
           ezModules.hyprland
         ]
       else
