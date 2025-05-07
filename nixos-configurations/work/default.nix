@@ -114,10 +114,17 @@
       # Fix for hardware cursors in Wayland compositors with NVIDIA
       WLR_NO_HARDWARE_CURSORS = "1";
 
-      # Configure GPU acceleration for video and rendering
+      # Configure GPU acceleration for video and rendering to use AMD
       LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+
+      # Tell DisplayLink/EVDI to use your AMD GPU (card1) for rendering.
+      WLR_EVDI_RENDER_DEVICE = "/dev/dri/card1";
+
+      # Explicitly tell Hyprland which DRM devices to manage.
+      # Prioritize AMD (card1), then DisplayLink (card2).
+      WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card2";
     };
 
     systemPackages = with pkgs; [
@@ -295,16 +302,6 @@
 
   systemd.services.dlm = {
     wantedBy = [ "multi-user.target" ];
-  };
-
-  # If using Hyprland or another Wayland compositor, you might need to specify
-  # the render device if you have multiple GPUs (e.g., NVIDIA + DisplayLink).
-  # This can often be set via environment variables in your home-manager or system config.
-  # For example, if your main GPU is /dev/dri/card0:
-  environment.sessionVariables = {
-    WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0"; # Prioritize DisplayLink (card1) then main GPU (card0)
-    # Or for specific EVDI rendering:
-    # WLR_EVDI_RENDER_DEVICE = "/dev/dri/card0"; # Tells DisplayLink/EVDI to use your main GPU for rendering
   };
 
   #-----------------------------------------------------------------------------
