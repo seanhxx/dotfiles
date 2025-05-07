@@ -202,6 +202,8 @@
         allowedUDPPorts = [
         ];
 
+        trustedInterfaces = [ "virbr0" ]; # for libvirt
+
       };
 
       # NetworkManager provides user-friendly network management
@@ -315,6 +317,22 @@
   systemd.services.dlm = {
     wantedBy = [ "multi-user.target" ];
   };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/swtpm-localca 0755 tss tss -"
+    # You might also need a state directory specifically for the TPM state,
+    # if 'statedir' is a subdirectory of swtpm-localca or separate.
+    # The error message isn't specific about the exact path of 'statedir'
+    # beyond it being related to /var/lib/swtpm-localca.
+    # If swtpm expects to create subdirectories itself within /var/lib/swtpm-localca,
+    # then 0755 for /var/lib/swtpm-localca owned by tss:tss should be sufficient.
+  ];
+
+  users.users.tss = {
+    # Or users.groups.tss
+    isSystemUser = true;
+    group = "tss";
+  };
+  users.groups.tss.members = [ "tss" ]; # Ensure the group exists
 
   #-----------------------------------------------------------------------------
   # USER HOME CONFIGURATION
