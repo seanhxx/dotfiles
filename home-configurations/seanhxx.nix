@@ -22,7 +22,7 @@
     ++ (
       if (builtins.elem "nvidia" osConfig.system.nixos.tags) then
         [
-          ezModules.nvidia
+          # ezModules.nvidia
         ]
       else
         [ ]

@@ -72,7 +72,7 @@
   # System tags determine which conditional modules are enabled
   # These tags are used in other configuration files to enable/disable features
   system.nixos.tags = [
-    "nvidia" # Enable NVIDIA-specific configurations in imported modules
+    # "nvidia" # Enable NVIDIA-specific configurations in imported modules
     "gui" # Enable GUI/desktop environment support in imported modules
   ];
 
@@ -86,22 +86,22 @@
     enableRedistributableFirmware = true;
 
     # NVIDIA GPU configuration for optimal performance
-    nvidia = {
-      # Force full composition pipeline for smoother display and reduced tearing
-      # forceFullCompositionPipeline = true;
+    # nvidia = {
+    #   # Force full composition pipeline for smoother display and reduced tearing
+    #   # forceFullCompositionPipeline = true;
 
-      # Enable kernel modesetting for better Wayland compatibility
-      # modesetting.enable = true;
+    #   # Enable kernel modesetting for better Wayland compatibility
+    #   # modesetting.enable = true;
 
-      # Power management for extended battery life on mobile workstation
-      # powerManagement = {
-      #   enable = false; # Enable power saving features
-      #   finegrained = false; # Coarse-grained power management for stability
-      # };
+    #   # Power management for extended battery life on mobile workstation
+    #   # powerManagement = {
+    #   #   enable = false; # Enable power saving features
+    #   #   finegrained = false; # Coarse-grained power management for stability
+    #   # };
 
-      # Configuration for NVIDIA driver approach
-      open = true;
-    };
+    #   # Configuration for NVIDIA driver approach
+    #   open = true;
+    # };
   };
 
   #-----------------------------------------------------------------------------
