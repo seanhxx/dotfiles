@@ -47,6 +47,8 @@
       cmctl # Certificate manager
       cryptsetup
 
+      ## Development Tools
+      conda
     ];
   };
 
