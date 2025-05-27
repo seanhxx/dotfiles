@@ -54,7 +54,7 @@
       # GUI Applications
       ## Browsers
       google-chrome
-      microsoft-edge
+      # microsoft-edge
 
       ## Office & Productivity
       onlyoffice-bin
