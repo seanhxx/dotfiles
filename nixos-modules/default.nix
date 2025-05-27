@@ -14,6 +14,9 @@ let
     ];
 
   sharedOverlays = overlays ++ [
+    (_: prev: {
+      microsoft-edge = inputs.nixpkgs-stable.legacyPackages.x86_64-linux.microsoft-edge;
+    })
   ];
 
   nixos-modules = with inputs; [
