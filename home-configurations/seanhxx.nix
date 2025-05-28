@@ -70,7 +70,7 @@
               signingKey = "5D60F2018C745B5E";
             };
             commit = {
-              gpgSign = true;
+              gpgSign = false;
             };
           };
         }
