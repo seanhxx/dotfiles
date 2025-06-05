@@ -118,6 +118,11 @@
         "$mod shift, 9, exec, hyprctl dispatch workspace 9" # Switch to workspace 9
         "$mod shift, Left, exec, hyprctl dispatch workspace prev hist" # Switch to previous workspace
 
+        # Screenshot current screen (focused monitor), save to file & copy to clipboard
+        ", Print, exec, grim -t png - | tee $HOME/Screenshots/$(date +'%Y-%m-%d_%H%M%S').png | wl-copy"
+        # Screenshot selected region, save to file & copy to clipboard
+        "SHIFT, Print, exec, grim -t png -g \"$(slurp)\" - | tee $HOME/Screenshots/$(date +'%Y-%m-%d_%H%M%S').png | wl-copy"
+
         # Add these bindings to send windows to specific workspaces with middle mouse button
         "$mod ctrl, 1, movetoworkspace, 1"
         "$mod ctrl, 2, movetoworkspace, 2"
