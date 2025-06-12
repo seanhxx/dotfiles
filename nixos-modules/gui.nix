@@ -21,6 +21,11 @@
     };
 
     packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      sarasa-gothic # 更纱黑体
+      wqy_microhei
       nerd-fonts.jetbrains-mono
     ];
   };

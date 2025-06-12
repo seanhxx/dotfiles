@@ -58,6 +58,8 @@
 
       ## Office & Productivity
       onlyoffice-bin
+      libreoffice-qt
+      hunspell
 
       ## Communication & Collaboration
       slack
