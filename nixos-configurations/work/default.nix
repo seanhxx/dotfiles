@@ -141,7 +141,7 @@
 
   boot = {
     # Use the latest kernel for best hardware support and performance
-    kernelPackages = pkgs.linuxPackages_6_13;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [
       "evdi"
     ];
