@@ -90,7 +90,7 @@
     ssh = {
       matchBlocks = {
         "oracle-001" = {
-          hostname = "213.35.107.62";
+          hostname = "158.178.242.90";
           user = "seanhxx";
           extraOptions = {
             "ForwardAgent" = "yes";
